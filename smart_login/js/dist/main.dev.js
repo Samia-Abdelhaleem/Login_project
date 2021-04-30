@@ -10,12 +10,14 @@ var myForm = document.querySelector(".content .form_info form"),
 signup_Name = document.querySelector(".myName"),
     signup_email = document.querySelector(".myEmail"),
     signup_password = document.querySelector(".myPassword"),
-    signup_warning = document.querySelector(".warning");
+    signup_warning = document.querySelector(".warning"),
+    allSignedUpAccounts;
 
 if (localStorage.getItem("allSignedupinfo") == null) {
-  var allSignedUpAccounts = [];
+  allSignedUpAccounts = [];
 } else {
   allSignedUpAccounts = JSON.parse(localStorage.getItem("allSignedupinfo"));
+  console.log(allSignedUpAccounts);
 }
 
 myForm.addEventListener('submit', function (e) {
@@ -51,13 +53,13 @@ function addAccount() {
   if (allSignedUpAccounts.length == 0) {
     allSignedUpAccounts.push(accountinfo);
     console.log(allSignedUpAccounts);
-    localStorage.setItem('allSignedupinfo ', JSON.stringify(allSignedUpAccounts));
+    localStorage.setItem("allSignedupinfo", JSON.stringify(allSignedUpAccounts));
   } else {
     for (var i = 0; i < allSignedUpAccounts.length; i++) {
       if (signup_email.value != allSignedUpAccounts[i].email) {
         allSignedUpAccounts.push(accountinfo);
         console.log(allSignedUpAccounts);
-        localStorage.setItem('allSignedupinfo ', JSON.stringify(allSignedUpAccounts));
+        localStorage.setItem("allSignedupinfo", JSON.stringify(allSignedUpAccounts));
       } else {
         signup_warning.classList.remove("d-none");
         signup_warning.classList.add("d-block");
@@ -67,3 +69,5 @@ function addAccount() {
     }
   }
 }
+
+function showsignupWarning() {}
