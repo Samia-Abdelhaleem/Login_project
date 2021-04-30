@@ -1,0 +1,74 @@
+.content
+{
+ background-color: #24353F;
+ height: 100vh;
+}
+
+.content .form_info
+{
+    box-shadow: -5px 2px 54px -9px rgb(0 0 0);
+}
+
+.content .form_info h2
+{
+    color: #17a2b8;
+    font-size:40px;
+    font-family: 'Oswald', sans-serif;
+    margin-bottom:20px
+}
+
+.content .form_info .form-group
+{
+
+}
+
+.content .form_info input
+{
+background-color: transparent;
+color: #fff;
+}
+
+.content .form_info .form-group input::placeholder
+{
+    text-transform: capitalize;
+    color:#ced4da;
+
+}
+
+.content .form_info form button
+{
+    background-color: transparent;
+    border-color: #17a2b8;
+    color: #17a2b8;
+}
+.content .form_info form button:hover
+{
+    background-color: #17a2b8;
+    color:#fff;
+}
+.content .form_info form button:focus
+{
+   box-shadow: 0 0 0 0.2rem rgb(23 162 184 / 50%);
+   background-color: #17a2b8;
+   color:#fff;
+}
+
+.content .form_info form .warning
+{
+    color:red;
+}
+.content .form_info p,
+.content .form_info p span
+{
+color:#fff;
+} 
+
+.content .form_info p span
+{
+    cursor: pointer;
+    
+}
+.content .form_info p span:hover
+{
+    text-decoration: underline;
+}
