@@ -81,7 +81,6 @@ if(location.href.includes("index.html"))
                     password:signup_password.value
                 }
                 allSignedUpAccounts.push(accountinfo);
-           
                 localStorage.setItem('allSignedupinfo',JSON.stringify(allSignedUpAccounts));
              }
              else
