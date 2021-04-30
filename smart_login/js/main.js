@@ -9,6 +9,8 @@ emailLogin = document.querySelector(".my_email"),
  signup_email = document.querySelector(".myEmail"),
  signup_password=document.querySelector(".myPassword"),
  signup_warning = document.querySelector(".warning");
+ var accountinfo;
+ var allSignedUpAccounts;
 
  if (localStorage.getItem("allSignedupinfo") == null) {
     var allSignedUpAccounts = [];
@@ -53,27 +55,34 @@ if(location.href.includes("index.html"))
 
  
  function  addAccount() { 
-     var accountinfo = 
+     
+     if(allSignedUpAccounts.length ===  0)
      {
-         name:signup_Name.value,
-         email : signup_email.value,
-         password:signup_password.value
-     }
-     if(allSignedUpAccounts.length == 0)
-     {
+         accountinfo = 
+        {
+            name:signup_Name.value,
+            email : signup_email.value,
+            password:signup_password.value
+        }
         allSignedUpAccounts.push(accountinfo);
-            console.log(allSignedUpAccounts);
-            localStorage.setItem('allSignedupinfo ',JSON.stringify(allSignedUpAccounts)); 
+        
+            localStorage.setItem('allSignedupinfo',JSON.stringify(allSignedUpAccounts)); 
      }
      else
      {
          for(var i = 0; i<allSignedUpAccounts.length; i++)
          {
-             if(signup_email.value != allSignedUpAccounts[i].email)
+             if(signup_email.value !== allSignedUpAccounts[i].email)
              {
+                accountinfo = 
+                {
+                    name:signup_Name.value,
+                    email : signup_email.value,
+                    password:signup_password.value
+                }
                 allSignedUpAccounts.push(accountinfo);
-                console.log(allSignedUpAccounts);
-                localStorage.setItem('allSignedupinfo ',JSON.stringify(allSignedUpAccounts));
+           
+                localStorage.setItem('allSignedupinfo',JSON.stringify(allSignedUpAccounts));
              }
              else
              {
