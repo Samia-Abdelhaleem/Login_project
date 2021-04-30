@@ -8,14 +8,16 @@ emailLogin = document.querySelector(".my_email"),
  signup_Name = document.querySelector(".myName"),
  signup_email = document.querySelector(".myEmail"),
  signup_password=document.querySelector(".myPassword"),
- signup_warning = document.querySelector(".warning");
- var accountinfo;
- var allSignedUpAccounts;
+ signup_warning = document.querySelector(".warning"),
+  allSignedUpAccounts  ;
 
  if (localStorage.getItem("allSignedupinfo") == null) {
-    var allSignedUpAccounts = [];
-  } else {
+     allSignedUpAccounts = [];
+  } 
+  
+  else {
     allSignedUpAccounts = JSON.parse(localStorage.getItem("allSignedupinfo"));
+    console.log(allSignedUpAccounts);
   }
 
 
@@ -55,34 +57,29 @@ if(location.href.includes("index.html"))
 
  
  function  addAccount() { 
-     
-     if(allSignedUpAccounts.length ===  0)
+    
+    var  accountinfo = 
+    {
+        name:signup_Name.value,
+        email : signup_email.value,
+        password:signup_password.value
+    } ;
+
+     if(allSignedUpAccounts.length == 0)
      {
-         accountinfo = 
-        {
-            name:signup_Name.value,
-            email : signup_email.value,
-            password:signup_password.value
-        }
         allSignedUpAccounts.push(accountinfo);
-        
-            localStorage.setItem('allSignedupinfo',JSON.stringify(allSignedUpAccounts)); 
+            console.log(allSignedUpAccounts);
+            localStorage.setItem("allSignedupinfo",JSON.stringify(allSignedUpAccounts)); 
      }
      else
      {
          for(var i = 0; i<allSignedUpAccounts.length; i++)
          {
-             if(signup_email.value !== allSignedUpAccounts[i].email)
+             if(signup_email.value != allSignedUpAccounts[i].email)
              {
-                accountinfo = 
-                {
-                    name:signup_Name.value,
-                    email : signup_email.value,
-                    password:signup_password.value
-                }
                 allSignedUpAccounts.push(accountinfo);
-           
-                localStorage.setItem('allSignedupinfo',JSON.stringify(allSignedUpAccounts));
+                console.log(allSignedUpAccounts);
+                localStorage.setItem("allSignedupinfo",JSON.stringify(allSignedUpAccounts));
              }
              else
              {
@@ -94,6 +91,12 @@ if(location.href.includes("index.html"))
          }
      }
     
+    
+
+  }
+
+  function showsignupWarning()
+  {
 
   }
  
