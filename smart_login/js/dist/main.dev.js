@@ -1,12 +1,12 @@
 "use strict";
 
-var myForm = document.querySelector(".content .form_info form"),
+var form = document.getElementById("form"),
     // login form
 // login ( index page ) varaibles :
 emailLogin = document.querySelector(".content .form_info .my_email"),
     passwordlLogin = document.querySelector(".content .form_info .my_pass"),
     loginButton = document.querySelector(".content .form_info .log_Btn"),
-    login_warning = document.querySelector(".content .form_info.login_warning"),
+    login_warning = document.querySelector(".content .form_info .login_warning"),
     signupButton = document.querySelector(".content .form_info .sign_up"),
     signinButton = document.querySelector(".content .form_info .sign_in"),
     // sign up page variables
@@ -20,6 +20,12 @@ var checkEmail = [];
 var checkName = [];
 var checkpassword = [];
 var accountinfo; // my stored object
+// home page 
+
+var welcomeName = document.getElementById("welcName");
+/* console.log(welcomeName); */
+
+var Name_index;
 
 if (localStorage.getItem("allSignedupinfo") == null) {
   allSignedUpAccounts = [];
@@ -30,35 +36,43 @@ if (localStorage.getItem("allSignedupinfo") == null) {
 
 for (var i = 0; i < allSignedUpAccounts.length; i++) {
   checkEmail.push(allSignedUpAccounts[i].email);
-  console.log(checkEmail);
+  /*  console.log(checkEmail); */
+
   checkName.push(allSignedUpAccounts[i].name);
+  /*  console.log(checkName); */
+
   checkpassword.push(allSignedUpAccounts[i].password);
-  console.log(checkpassword);
+  /*  console.log(checkpassword); */
 } //  Smart Login System
 
 
 if (location.href.includes("index.html")) {
   signupButton.addEventListener("click", function () {
     location.href = "signup.html";
-    myForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      loginButton.addEventListener('submit', function () {
-        // for (var i = 0; i < allSignedUpAccounts.length; i++) {
-        //     if(emailLogin.value == checkEmail[i] && passwordlLogin.value == checkpassword[i])
-        //     {
-        //         // location.href = "home.html"; 
-        //         console.log("yes")
-        //     }
-        //     else
-        //     {
-        //     //     showloginWarning();
-        //     //    login_warning.innerHTML = "incorrect Email or password ";
-        //     console.log("No")
-        //     }
-        // }
-        console.log("hi");
-      });
-    });
+  });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+  });
+  loginButton.addEventListener("click", function () {
+    for (var i = 0; i < allSignedUpAccounts.length; i++) {
+      if (emailLogin.value == checkEmail[i] && passwordlLogin.value == checkpassword[i]) {
+        Name_index = i;
+        localStorage.setItem("index", JSON.stringify(Name_index));
+        location.href = "home.html";
+        console.log(welcomeName);
+        welcomeName.innerHTML = checkName[JSON.stringify(localStorage.getItem("index"))];
+        /* console.log(welcomeName); */
+
+        console.log(checkName[JSON.stringify(localStorage.getItem("index"))]);
+        localStorage.setItem("index", JSON.stringify(""));
+        break;
+      } else {
+        showloginWarning();
+        login_warning.innerHTML = "incorrect Email or password ";
+      }
+    }
+    /* console.log('hi'); */
+
   });
 } // Smart Sign Up System
 
@@ -113,4 +127,7 @@ function showsignupWarning() {
 function showloginWarning() {
   login_warning.classList.remove("d-none");
   login_warning.classList.add("d-block");
-}
+} // function clearlogininput() {
+//   emailLogin.value = "";
+//   passwordlLogin.value = "";
+// }

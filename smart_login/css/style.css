@@ -73,3 +73,39 @@ color:#fff;
 {
     text-decoration: underline;
 }
+
+ /*------- home page --------  */
+
+ .header 
+ {
+    box-shadow: -5px 2px 54px -9px rgb(0 0 0);
+    color:#fff;  
+    
+    font-family: 'Oswald', sans-serif;
+ }
+ .header p
+ {
+    font-size:28px;
+ }
+
+ .header button
+ {
+     background-color:transparent;
+     border-color:#ffc107;
+     padding:8px 16px;
+     height:fit-content;
+ }
+ .header button:hover
+ {
+     background-color:#ffc107;
+     outline:none;
+     border-color:#ffc107;
+ }
+ .home_info
+ {
+     color:#fff;
+     box-shadow: -5px 2px 54px -9px rgb(0 0 0);
+     width: 60%;
+     font-size: 32px;
+     color:#17a2b8;
+ }

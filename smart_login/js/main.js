@@ -3,7 +3,7 @@ var form = document.getElementById("form"), // login form
   emailLogin = document.querySelector(".content .form_info .my_email"),
   passwordlLogin = document.querySelector(".content .form_info .my_pass"),
   loginButton = document.querySelector(".content .form_info .log_Btn"),
-  login_warning=document.querySelector(".content .form_info.login_warning"),
+  login_warning = document.querySelector(".content .form_info .login_warning"),
   signupButton = document.querySelector(".content .form_info .sign_up"),
   signinButton = document.querySelector(".content .form_info .sign_in"),
   // sign up page variables
@@ -13,43 +13,59 @@ var form = document.getElementById("form"), // login form
   signup_warning = document.querySelector(".warning"),
   allSignedUpAccounts;
 // check variables
-var checkEmail=[];
-var checkName =[];
-var checkpassword =[];
+var checkEmail = [];
+var checkName = [];
+var checkpassword = [];
 var accountinfo; // my stored object
+// home page 
+var welcomeName = document.getElementById("welcName");
+/* console.log(welcomeName); */
+var Name_index;
 if (localStorage.getItem("allSignedupinfo") == null) {
   allSignedUpAccounts = [];
 } else {
   allSignedUpAccounts = JSON.parse(localStorage.getItem("allSignedupinfo"));
   /*  console.log(allSignedUpAccounts); */
 }
-// for (var i = 0; i < allSignedUpAccounts.length; i++) {
-//   checkEmail.push(allSignedUpAccounts[i].email) ;
-//   console.log(checkEmail);
-//   checkName.push(allSignedUpAccounts[i].name) ;
-//   checkpassword.push(allSignedUpAccounts[i].password) ;
-//   console.log(checkpassword);
-// }
-
-
+for (var i = 0; i < allSignedUpAccounts.length; i++) {
+  checkEmail.push(allSignedUpAccounts[i].email);
+ /*  console.log(checkEmail); */
+  checkName.push(allSignedUpAccounts[i].name);
+ /*  console.log(checkName); */
+  checkpassword.push(allSignedUpAccounts[i].password);
+ /*  console.log(checkpassword); */
+}
 
 //  Smart Login System
 if (location.href.includes("index.html")) {
   signupButton.addEventListener("click", function () {
     location.href = "signup.html";
-
   });
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-
-
   });
-  loginButton.addEventListener('click',function()
-    {
+  loginButton.addEventListener("click", function () {
+    for (var i = 0; i < allSignedUpAccounts.length; i++) {
+      if (emailLogin.value == checkEmail[i] && passwordlLogin.value == checkpassword[i]) {
+Name_index = i;
+localStorage.setItem("index",JSON.stringify(Name_index));
+        location.href = "home.html";
+       console.log(welcomeName);
+          welcomeName.innerHTML = checkName[JSON.stringify(localStorage.getItem("index"))];
+          /* console.log(welcomeName); */
+          console.log(checkName[JSON.stringify(localStorage.getItem("index"))]);
+          localStorage.setItem("index",JSON.stringify(""));
+        
+        break;
+      } else {
+        showloginWarning();
+        login_warning.innerHTML = "incorrect Email or password ";
+       
+      }
+    }
 
-   console.log('hi');
-
-    });
+    /* console.log('hi'); */
+  });
 }
 // Smart Sign Up System
 if (location.href.includes("signup.html")) {
@@ -70,39 +86,47 @@ function addAccount() {
     };
     allSignedUpAccounts.push(accountinfo);
     console.log(allSignedUpAccounts);
-    localStorage.setItem( "allSignedupinfo", JSON.stringify(allSignedUpAccounts));
+    localStorage.setItem(
+      "allSignedupinfo",
+      JSON.stringify(allSignedUpAccounts)
+    );
   } else {
-    if (signup_Name.value == "" || signup_email.value == "" || signup_password.value == "")
-    {
-        showsignupWarning();
+    if ( signup_Name.value == "" || signup_email.value == "" || signup_password.value == ""
+    ) {
+      showsignupWarning();
       signup_warning.innerHTML = "All Inputs are required";
-    }
-    else if (checkName.toString().includes(signup_Name.value) == true) {
-        showsignupWarning();
+    } else if (checkName.toString().includes(signup_Name.value) == true) {
+      showsignupWarning();
       signup_warning.innerHTML = "Name is already exist";
-    }
-    else if (checkEmail.toString().includes(signup_email.value) === false) {
+    } else if (checkEmail.toString().includes(signup_email.value) === false) {
       accountinfo = {
         name: signup_Name.value,
         email: signup_email.value,
         password: signup_password.value,
       };
       allSignedUpAccounts.push(accountinfo);
-      localStorage.setItem( "allSignedupinfo",JSON.stringify(allSignedUpAccounts) );
+      localStorage.setItem(
+        "allSignedupinfo",
+        JSON.stringify(allSignedUpAccounts)
+      );
       signup_warning.innerHTML = "";
     } else if (checkEmail.includes(signup_email.value) == true) {
-        showsignupWarning();
+      showsignupWarning();
       signup_warning.innerHTML = "Email is already exist";
     }
   }
-
 }
 
 function showsignupWarning() {
-    signup_warning.classList.remove("d-none");
-    signup_warning.classList.add("d-block");
-  }
+  signup_warning.classList.remove("d-none");
+  signup_warning.classList.add("d-block");
+}
 function showloginWarning() {
-    login_warning.classList.remove("d-none");
-    login_warning.classList.add("d-block");
-  }
+  login_warning.classList.remove("d-none");
+  login_warning.classList.add("d-block");
+}
+
+// function clearlogininput() {
+//   emailLogin.value = "";
+//   passwordlLogin.value = "";
+// }
