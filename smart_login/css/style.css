@@ -53,7 +53,8 @@ color: #fff;
    color:#fff;
 }
 
-.content .form_info form .warning
+.content .form_info form .warning,
+.content .form_info form .login_warning
 {
     color:red;
 }
