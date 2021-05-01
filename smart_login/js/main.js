@@ -1,7 +1,9 @@
-var myForm = document.querySelector(".content .form_info form"),
-  emailLogin = document.querySelector(".my_email"),
-  passwordlLogin = document.querySelector(".my_pass"),
-  loginButton = document.querySelector("button.logBtn"),
+var myForm = document.querySelector(".content .form_info form"), // login form
+  // login ( index page ) varaibles :
+  emailLogin = document.querySelector(".content .form_info .my_email"),
+  passwordlLogin = document.querySelector(".content .form_info .my_pass"),
+  loginButton = document.querySelector(".content .form_info .log_Btn"),
+  login_warning=document.querySelector(".content .form_info.login_warning"),
   signupButton = document.querySelector(".content .form_info .sign_up"),
   signinButton = document.querySelector(".content .form_info .sign_in"),
   // sign up page variables
@@ -10,37 +12,61 @@ var myForm = document.querySelector(".content .form_info form"),
   signup_password = document.querySelector(".myPassword"),
   signup_warning = document.querySelector(".warning"),
   allSignedUpAccounts;
-var accountinfo;
-var checkEmail;
-var checkName;
+// check variables
+var checkEmail=[];
+var checkName =[];
+var checkpassword =[];
+var accountinfo; // my stored object
 if (localStorage.getItem("allSignedupinfo") == null) {
   allSignedUpAccounts = [];
 } else {
   allSignedUpAccounts = JSON.parse(localStorage.getItem("allSignedupinfo"));
-  console.log(allSignedUpAccounts);
+  /*  console.log(allSignedUpAccounts); */
 }
 for (var i = 0; i < allSignedUpAccounts.length; i++) {
-  checkEmail += allSignedUpAccounts[i].email;
-  checkName += allSignedUpAccounts[i].name;
+  checkEmail.push(allSignedUpAccounts[i].email) ;
+  console.log(checkEmail);
+  checkName.push(allSignedUpAccounts[i].name) ;
+  checkpassword.push(allSignedUpAccounts[i].password) ;
+  console.log(checkpassword);
 }
 
-myForm.addEventListener("submit", function (e) {
-  e.preventDefault();
+  
 
-  //     loginButton.addEventListener('click',function()
-  //     {
-
-  //    /* console.log(emailLogin.value); */
-
-  //     });
-});
-// sign up button  in Smart Login System
+//  Smart Login System
 if (location.href.includes("index.html")) {
   signupButton.addEventListener("click", function () {
     location.href = "signup.html";
+
+    myForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+      
+            loginButton.addEventListener('submit',function()
+            {
+              // for (var i = 0; i < allSignedUpAccounts.length; i++) {
+              //     if(emailLogin.value == checkEmail[i] && passwordlLogin.value == checkpassword[i])
+              //     {
+              //         // location.href = "home.html"; 
+              //         console.log("yes")
+              //     }
+              //     else
+              //     {
+              //     //     showloginWarning();
+              //     //    login_warning.innerHTML = "incorrect Email or password ";
+              //     console.log("No")
+      
+              //     }
+              // }
+            
+              console.log("hi");
+      
+            });
+      });
+
+   
   });
 }
-// sign in button in Smart Sign Up System
+// Smart Sign Up System
 if (location.href.includes("signup.html")) {
   signinButton.addEventListener("click", function () {
     location.href = "index.html";
@@ -59,41 +85,39 @@ function addAccount() {
     };
     allSignedUpAccounts.push(accountinfo);
     console.log(allSignedUpAccounts);
-    localStorage.setItem(
-      "allSignedupinfo",
-      JSON.stringify(allSignedUpAccounts)
-    );
+    localStorage.setItem( "allSignedupinfo", JSON.stringify(allSignedUpAccounts));
   } else {
-    if (
-      signup_Name.value == "" ||
-      signup_email.value == "" ||
-      signup_password.value == ""
-    ) {
-      signup_warning.classList.remove("d-none");
-      signup_warning.classList.add("d-block");
+    if (signup_Name.value == "" || signup_email.value == "" || signup_password.value == "") 
+    {
+        showsignupWarning();
       signup_warning.innerHTML = "All Inputs are required";
-    } else if (checkName.includes(signup_Name.value) == true) {
-      signup_warning.classList.remove("d-none");
-      signup_warning.classList.add("d-block");
+    } 
+    else if (checkName.toString().includes(signup_Name.value) == true) {
+        showsignupWarning();
       signup_warning.innerHTML = "Name is already exist";
-    } else if (checkEmail.includes(signup_email.value) === false) {
+    } 
+    else if (checkEmail.toString().includes(signup_email.value) === false) {
       accountinfo = {
         name: signup_Name.value,
         email: signup_email.value,
         password: signup_password.value,
       };
       allSignedUpAccounts.push(accountinfo);
-      localStorage.setItem(
-        "allSignedupinfo",
-        JSON.stringify(allSignedUpAccounts)
-      );
+      localStorage.setItem( "allSignedupinfo",JSON.stringify(allSignedUpAccounts) );
       signup_warning.innerHTML = "";
     } else if (checkEmail.includes(signup_email.value) == true) {
-      signup_warning.classList.remove("d-none");
-      signup_warning.classList.add("d-block");
+        showsignupWarning();
       signup_warning.innerHTML = "Email is already exist";
     }
   }
 
-  function showsignupWarning() {}
 }
+
+function showsignupWarning() {
+    signup_warning.classList.remove("d-none");
+    signup_warning.classList.add("d-block");
+  }
+function showloginWarning() {
+    login_warning.classList.remove("d-none");
+    login_warning.classList.add("d-block");
+  }
