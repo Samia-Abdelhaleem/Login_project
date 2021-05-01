@@ -48,13 +48,15 @@ if (location.href.includes("index.html")) {
     for (var i = 0; i < allSignedUpAccounts.length; i++) {
       if (emailLogin.value == checkEmail[i] && passwordlLogin.value == checkpassword[i]) {
 Name_index = i;
-localStorage.setItem("index",JSON.stringify(Name_index));
+// solving using session storage
+// sessionStorage.setItem("index",Name_index);
+// solve it using localstorage
+localStorage.setItem('index', JSON.stringify(Name_index))
         location.href = "home.html";
        console.log(welcomeName);
-          welcomeName.innerHTML = checkName[JSON.stringify(localStorage.getItem("index"))];
           /* console.log(welcomeName); */
-          console.log(checkName[JSON.stringify(localStorage.getItem("index"))]);
-          localStorage.setItem("index",JSON.stringify(""));
+         
+         
         
         break;
       } else {
@@ -66,6 +68,15 @@ localStorage.setItem("index",JSON.stringify(Name_index));
 
     /* console.log('hi'); */
   });
+}
+if(location.href.includes('home.html')){
+  // getting the index stored in localstorage 
+  Name_index = JSON.parse(localStorage.getItem("index"));
+  // getting the index stored in session storage
+  // Name_index = sessionStorage.getItem("index");
+  welcomeName.innerHTML = checkName[Name_index];
+  console.log(Name_index);
+  console.log(allSignedUpAccounts[Name_index]);
 }
 // Smart Sign Up System
 if (location.href.includes("signup.html")) {
