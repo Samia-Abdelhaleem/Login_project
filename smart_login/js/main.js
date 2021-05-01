@@ -24,20 +24,30 @@ for (var i = 0; i < allSignedUpAccounts.length; i++) {
   checkName += allSignedUpAccounts[i].name;
 }
 
-myForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  //     loginButton.addEventListener('click',function()
-  //     {
-
-  //    /* console.log(emailLogin.value); */
-
-  //     });
-});
+// myForm.addEventListener("submit", function (e) {
+//   e.preventDefault();
+//
+//   //     loginButton.addEventListener('click',function()
+//   //     {
+//
+//   //    /* console.log(emailLogin.value); */
+//
+//   //     });
+// });
 // sign up button  in Smart Login System
 if (location.href.includes("index.html")) {
   signupButton.addEventListener("click", function () {
     location.href = "signup.html";
+  });
+  myForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+      loginButton.addEventListener('submit',function()
+        {
+
+       console.log('hi');
+
+        });
   });
 }
 // sign in button in Smart Sign Up System
